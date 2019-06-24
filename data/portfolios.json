@@ -1,0 +1,58 @@
+{
+    "Portfolios": [
+        {
+            "_Id": "1",
+            "Name": "Portfolio 1",
+            "Transactions": [
+                {
+                    "SecurityId": "A",
+                    "Type": "Buy",
+                    "Date": "2004-11-30",
+                    "Amount": "10000"
+                },
+                {
+                    "SecurityId": "D",
+                    "Type": "Buy",
+                    "Date": "2011-11-22",
+                    "Amount": "1000"
+                }
+            ]
+        },
+        {
+            "_Id": "2",
+            "Name": "Portfolio 2",
+            "Transactions": [
+                {
+                    "SecurityId": "A",
+                    "Type": "Buy",
+                    "Date": "2004-11-30",
+                    "Amount": "10000"
+                },
+                {
+                    "SecurityId": "B",
+                    "Type": "Buy",
+                    "Date": "2005-05-12",
+                    "Amount": "1000"
+                },
+                {
+                    "SecurityId": "C",
+                    "Type": "Buy",
+                    "Date": "2005-06-05",
+                    "Amount": "1000"
+                },
+                {
+                    "SecurityId": "B",
+                    "Type": "Sell",
+                    "Date": "2006-08-21",
+                    "Amount": "500"
+                },
+                {
+                    "SecurityId": "C",
+                    "Type": "Buy",
+                    "Date": "2006-08-21",
+                    "Amount": "2000"
+                }
+            ]
+        }
+    ]
+}
