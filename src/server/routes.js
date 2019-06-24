@@ -80,6 +80,7 @@ router.post('/getTransactionsByPortfolio', (req, res) => {
                 }
                 if (hdVal) {
                     let shares = toFixed(+portfolioDateObject[i].Amount / +hdVal.Value, 2);
+
                     let hdValCurrent = find(secHist.HistoryDetail, { 'EndDate': formatDate(new Date(req.body.date)) });
                     if (!hdValCurrent) {
                         hdValCurrent = secHist.HistoryDetail[secHist.HistoryDetail.length - 1];
@@ -87,11 +88,17 @@ router.post('/getTransactionsByPortfolio', (req, res) => {
 
                     var refTL = find(transactionList, { name: secHist.name });
                     if (refTL) {
+                        refTL.date = formatDate(new Date(req.body.date));
+                        if (portfolioDateObject[i].Type === 'Buy') {
+                            refTL.shares = toFixed(refTL.shares + shares, 2);
+                            refTL.amount = toFixed(refTL.amount + toFixed(shares * +hdValCurrent.Value, 2), 2);
+                        } else {
+                            refTL.shares = toFixed(refTL.shares - shares, 2);
+                            refTL.amount = toFixed(refTL.amount - toFixed(shares * +hdValCurrent.Value, 2), 2);
+                        }
+                        //refTL.price = toFixed(+hdValCurrent.Value, 2);
                         refTL.data.push({
-                            date: formatDate(new Date(req.body.date)),
                             shares,
-                            price: toFixed(+hdValCurrent.Value, 2),
-                            amount: toFixed(+shares * +hdValCurrent.Value, 2),
                             bsType: portfolioDateObject[i].Type,
                             bsDate: formatDate(new Date(portfolioDateObject[i].Date)),
                             bsPrice: toFixed(+hdVal.Value, 2),
@@ -100,11 +107,12 @@ router.post('/getTransactionsByPortfolio', (req, res) => {
                     } else {
                         let securityObj = {
                             name: secHist.name,
+                            date: formatDate(new Date(req.body.date)),
+                            shares,
+                            price: toFixed(+hdValCurrent.Value, 2),
+                            amount: toFixed(shares * +hdValCurrent.Value, 2),
                             data: [{
-                                date: formatDate(new Date(req.body.date)),
                                 shares,
-                                price: toFixed(+hdValCurrent.Value, 2),
-                                amount: toFixed(+shares * +hdValCurrent.Value, 2),
                                 bsType: portfolioDateObject[i].Type,
                                 bsDate: formatDate(new Date(portfolioDateObject[i].Date)),
                                 bsPrice: toFixed(+hdVal.Value, 2),
@@ -119,13 +127,10 @@ router.post('/getTransactionsByPortfolio', (req, res) => {
                 }
 
             }
-            var totalValue = 0;
-            for (let i = 0; i < transactionList.length; i++) {
-                let additionValue = sumBy(transactionList[i].data, function (d) {
-                    return d.bsType == 'Buy' ? + d.amount : - d.amount;
-                });
-                totalValue = totalValue + additionValue;
-            }
+            let totalValue = sumBy(transactionList, function (d) {
+                console.log(d.amount)
+                return +d.amount;
+            });
 
             res.send({ transactionList, totalValue: toFixed(totalValue, 2) });
             // res.send({ transactionList });
@@ -139,7 +144,7 @@ router.post('/getTransactionsByPortfolio', (req, res) => {
 function toFixed(num, fixed) {
     //var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
     //return num.toString().match(re)[0];
-    return num.toFixed(fixed);
+    return parseFloat(num.toFixed(fixed));
 }
 function formatDate(date) {
     return date.getFullYear() +

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import _ from 'lodash';
+import Commom from '../../utils/common';
 import Api from '../../utils/api';
 
 import './style.scss';
@@ -42,7 +43,7 @@ class Portfolios extends Component {
             return (<tr key={index} onClick={e => this.onPortfolioRowClick(e, obj)}>
                 <td>{obj.name}</td>
                 <td>{obj.numberOfHoldings}</td>
-                <td>{obj.lastModifiedDate}</td>
+                <td>{Commom.formatDate(obj.lastModifiedDate)}</td>
             </tr>);
         }
         return (
