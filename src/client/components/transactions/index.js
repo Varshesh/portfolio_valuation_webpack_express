@@ -96,30 +96,6 @@ class Transactions extends Component {
                         <div className="col-10">Total Portfolio Value</div>
                         <div className="col-2">{this.totalValue}</div>
                     </div>
-                    {/* <div className="row list-row collapsed" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false">
-                        <div className="col-4"><i className="fa fa-angle-up" aria-hidden="true"></i>Mark</div>
-                        <div className="col-2">12/02/2019</div>
-                        <div className="col-2">885.73</div>
-                        <div className="col-2">14.10</div>
-                        <div className="col-2">1257.59</div>
-                    </div>
-                    <div className="collapse list-row-details" id="collapseExample">
-                        <div className="row">
-                            <div className="col-4">Mark</div>
-                            <div className="col-2">12/02/2019</div>
-                            <div className="col-2">885.73</div>
-                            <div className="col-2">14.10</div>
-                            <div className="col-2">1257.59</div>
-                        </div>
-                        <div className="row">
-                            <div className="col-4">Mark</div>
-                            <div className="col-2">12/02/2019</div>
-                            <div className="col-2">885.73</div>
-                            <div className="col-2">14.10</div>
-                            <div className="col-2">1257.59</div>
-                        </div>
-                    </div> */}
-
                 </div>
 
             </div >

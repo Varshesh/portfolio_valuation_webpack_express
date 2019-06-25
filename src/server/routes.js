@@ -1,12 +1,12 @@
 const express = require('express');
+const fs = require('fs');
 const uniqBy = require('lodash/uniqBy');
 const find = require('lodash/find');
 const filter = require('lodash/filter');
 const sumBy = require('lodash/sumBy');
 
+// Erxpress router to route api's
 const router = express.Router();
-
-const fs = require('fs');
 
 // middleware to use for all requests
 router.use(function (req, res, next) {
@@ -15,9 +15,9 @@ router.use(function (req, res, next) {
     next(); // make sure we go to the next routes and don't stop here
 });
 
-router.get('/hello', (req, res) => {
-
-    res.send({ express: 'Hello From Express' });
+// For testing api [Dummy - DELETE]
+router.get('/testapicall', (req, res) => {
+    res.send({ test: 'Hello From Express' });
 });
 
 router.post('/getPortfolios', (req, res) => {
@@ -48,8 +48,6 @@ router.post('/getPortfolios', (req, res) => {
     });
 
 });
-
-
 
 router.post('/getTransactionsByPortfolio', (req, res) => {
     fs.readFile('data/portfolios.json', (err, data) => {
@@ -142,8 +140,6 @@ router.post('/getTransactionsByPortfolio', (req, res) => {
 });
 
 function toFixed(num, fixed) {
-    //var re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
-    //return num.toString().match(re)[0];
     return parseFloat(num.toFixed(fixed));
 }
 function formatDate(date) {
@@ -153,4 +149,5 @@ function formatDate(date) {
         '-' +
         date.getDate();
 }
+
 module.exports = router;

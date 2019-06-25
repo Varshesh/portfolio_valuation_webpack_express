@@ -6,7 +6,6 @@ const Api = {
         return axios.post('/api/getPortfolios')
     },
     getTransactionsByPortfolio(portfolioNo, selectedDate) {
-        console.log(selectedDate)
         return axios.post('/api/getTransactionsByPortfolio',
             {
                 portfolioId: portfolioNo,
