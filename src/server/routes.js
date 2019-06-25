@@ -54,11 +54,9 @@ router.post('/getTransactionsByPortfolio', (req, res) => {
         if (err) throw err;
         let portfoliosJData = JSON.parse(data).Portfolios;
         var portfolioObject = find(portfoliosJData, { '_Id': req.body.portfolioId });
-        console.log(portfoliosJData);
         var portfolioDateObject = filter(portfolioObject.Transactions, function (o) {
             return formatDate(new Date(o.Date)) <= formatDate(new Date(req.body.date));
         });
-        console.log(portfolioDateObject);
         fs.readFile('data/securities.json', (err, data) => {
             if (err) throw err;
             let transactionsJData = JSON.parse(data).Securities;
@@ -126,7 +124,6 @@ router.post('/getTransactionsByPortfolio', (req, res) => {
 
             }
             let totalValue = sumBy(transactionList, function (d) {
-                console.log(d.amount)
                 return +d.amount;
             });
 
